@@ -52,3 +52,11 @@ docs/_build/
 
 # PyBuilder
 target/
+
+#Miscellaneous
+/sample_images
+fabfile.py
+simple_nginx_config
+supervisord.conf
+env_vars.txt
+requirements.txt
