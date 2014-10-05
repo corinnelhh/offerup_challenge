@@ -18,4 +18,4 @@ class Image(models.Model):
         super(Image, self).save(**kwargs)
         if not cel_save:
             from offerup_infrastructure.tasks import check_for_duplicates
-            check_for_duplicates(self.id)
+            check_for_duplicates.delay(self.id)
