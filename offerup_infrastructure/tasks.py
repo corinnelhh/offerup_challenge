@@ -2,6 +2,7 @@ from __future__ import absolute_import
 import time
 
 from celery import shared_task
+import urllib
 from django.core.exceptions import ObjectDoesNotExist
 from image_app.models import Image
 import pHash
@@ -19,7 +20,8 @@ def check_for_duplicates(image_id, image=None):
         except ObjectDoesNotExist:
             time.sleep(1)
     if image:
-        image_hash = pHash.imagehash(image)
+        urllib.urlretrieve(image.fileName.url, 'img_file')
+        image_hash = pHash.imagehash('img_file')
         if Image.objects.filter(Hash=image_hash):
             image.Duplicate = True
         image.Hash = image_hash
