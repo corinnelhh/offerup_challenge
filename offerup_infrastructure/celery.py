@@ -7,9 +7,14 @@ from celery import Celery
 from django.conf import settings
 
 # set the default Django settings module for the 'celery' program.
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'offerup_infrastructure.settings')
+os.environ.setdefault(
+    'DJANGO_SETTINGS_MODULE', 'offerup_infrastructure.settings'
+)
 
-app = Celery('offerup_infrastructure')
+app = Celery(
+    'offerup_infrastructure',
+    include=['offerup_infrastructure.tasks']
+    )
 
 
 # Using a string here means the worker will not have to

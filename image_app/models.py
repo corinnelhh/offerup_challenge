@@ -17,5 +17,7 @@ class Image(models.Model):
     def save(self, cel_save=False, **kwargs):
         super(Image, self).save(**kwargs)
         if not cel_save:
-            from offerup_infrastructure.tasks import check_for_duplicates
-            check_for_duplicates.delay(self.id)
+            from offerup_infrastructure import tasks
+            tasks.check_for_duplicates.apply_async(
+                args=[self.id], countdown=1
+            )
